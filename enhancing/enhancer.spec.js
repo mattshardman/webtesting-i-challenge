@@ -20,4 +20,23 @@ describe('enhancer functions', () => {
         });
     });
 
+    describe('fail function', () => {
+        it('not to change enhancement if enhancement is 0', () => {
+            expect(enhancer.fail({ enhancement: 0 }).enhancement).toBe(0);
+        });
+
+        it('to change durability by -5 if enhancement is below 15', () => {
+            expect(enhancer.fail({ enhancement: 14, durability: 15 }).durability).toBe(10);
+        });
+
+        it('to change durability by -10 if enhancement is above 14', () => {
+            expect(enhancer.fail({ enhancement: 15, durability: 15 }).durability).toBe(5);
+        })
+
+        it('to change durability by -10 and enhancement by -1, if enhancement is above 16', () => {
+            expect(enhancer.fail({ enhancement: 17, durability: 15 })).toEqual({ durability: 5, enhancement: 16 });
+        })
+       
+    });
+
 });
